@@ -1,26 +1,24 @@
 const elementoChute = document.getElementById('chute')
-window.SpeechRecognition = window.SpeechRecognition || webkitSpeechRecognition
 
-const recognition = new SpeechRecognition()
+window.SpeechRecognition = window.SpeechRecognition || webkitSpeechRecognition;
 
-recognition.lang = 'pr-br'
-
+const recognition = new SpeechRecognition();
+recognition.lang = 'pt-Br'
 recognition.start()
 
-recognition.addEventeListener('result', onEspeak)
+recognition.addEventListener('result', onSpeak)
 
-function onEspeak(e){
+function onSpeak(e) {
     chute = e.results[0][0].transcript
     exibeChuteNaTela(chute)
-    verificarSeChutePossuiUmValorValido(chute)
+    verificaSeOChutePossuiUmValorValido(chute)
 }
 
-function exibeChuteNaTela(chute){
-    elementoChute.innerHTML= `
-    <div> Você disse </div>
-    <span class="box" ${chute}</span> > 
-    `
+function exibeChuteNaTela(chute) {
+    elementoChute.innerHTML = `
+        <div>Você disse</div>
+        <span class="box">${chute}</span>
+     `
 }
 
-recognition.addEventeListener('end',()=> 
-recognition.start())
+recognition.addEventListener('end', () => recognition.start())
